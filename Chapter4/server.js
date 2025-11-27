@@ -48,12 +48,3 @@ const searchResultHtml = searchResults
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
 });
-
-// Chat GPT Summary
-// It starts with a variable currentPrice set to 60 (representing the Bitcoin price).
-
-// The /get-price route simulates a changing Bitcoin price:
-// - Each time the route is called, it adjusts currentPrice by a random number between -1 and +1.
-// - This makes the price go slightly up or down every time.
-// The server then sends back the updated price formatted as:
-// This works perfectly with the HTMX front end that fetches /get-price every 5 seconds, creating a live-updating Bitcoin price display.
