@@ -13,15 +13,36 @@ app.use(express.urlencoded({ extended: true }));
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-let currentPrice = 60;
+// Handle POST request for contacts search
+app.post('/search', async(req, res) => {
 
-app.get("/get-price", (req, res) => {
-  currentPrice = currentPrice + ((Math.random() * 2) - 1)
-  res.send("$" + currentPrice.toFixed(2));
-  console.log("Current Price = " + currentPrice.toFixed(2))
+const searchTerm = req.body.search.toLowerCase();
+if(!searchTerm) {
+    return res.send('<tr></tr>');
+    }
+
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
+    const users = await response.json()
+
+const searchResults = users.filter((user) =>{
+  const name = user.name.toLowerCase();
+  const email = user.email.toLowerCase();
+
+  return name.includes(searchTerm) || email.includes(searchTerm)
+})
+
+const searchResultHtml = searchResults
+  .map((user) => `
+    <tr>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+    </tr>
+  `)
+  .join('');
+
+  res.send(searchResultHtml);
+  
 });
-
-
 
 // Start the server
 app.listen(3000, () => {
