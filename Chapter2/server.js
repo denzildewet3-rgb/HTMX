@@ -23,9 +23,21 @@ app.post("/calculate", (req, res) => {
   const bmi = weight / (height * height);
   console.log("BMI = ", bmi)
 
+let message = "";
+
+if (bmi < 18.5) {
+  message = `<p style="color: blue;">You are Underweight.</p>`;
+} else if (bmi >= 18.5 && bmi < 24.9) {
+  message = `<p style="color: green;">You are in the Healthy range.</p>`
+} else if (bmi >= 25 && bmi < 29.9) {
+  message = `<p style="color: orange;">You are Overweight.</p>`
+} else {
+  message = `<p style="color: red;">You are Obese.</p>`
+}
+
   res.send(`
-        <p>Height of ${height} & Weight of ${weight} gives you BMI of ${bmi.toFixed(2)}</p>
-        `);
+        <p>Height of <strong>${height}</strong> and Weight of <strong>${weight}</strong> gives you BMI of <strong>${bmi.toFixed(2)}</strong></p>
+        <p><strong>${message}</strong></p>`);
 });
 
 // Start the server

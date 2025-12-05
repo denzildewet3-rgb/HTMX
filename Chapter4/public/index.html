@@ -57,3 +57,7 @@
     ></script>
   </body>
 </html>
+
+<!--Chat GPT summary
+
+This page creates a live user-search interface using HTMX. The search input field sends a POST request to /search every time the user types (hx-trigger="input changed delay:500ms") or performs a built-in search action. The server’s response is inserted into the <tbody id="search-results"> area, replacing its contents. The table displays user results with two columns: Name and Email. Initially, the table contains one placeholder row (“Denzil / De Wet”), but as soon as the user types, HTMX sends the search term to the server, receives matching rows, and updates the results instantly without reloading the page.-->
